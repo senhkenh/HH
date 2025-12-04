@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Admin - Hemmelmann</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+    <header class="admin-header">
+        <div class="admin-nav">
+            <h1>Panel Administrativo - Hemmelmann</h1>
+            <div class="admin-nav-actions">
+                <a href="index.html" class="btn-back">
+                    <i class="fas fa-arrow-left"></i> Volver al sitio
+                </a>
+                <button onclick="logout()" class="btn-back" style="background: none; border: 1px solid white;">
+                    <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="admin-main">
+        <div class="admin-container">
+            <div class="admin-actions">
+                <button id="btnAddProperty" class="btn btn-primary">
+                    <i class="fas fa-plus"></i> Agregar Propiedad
+                </button>
+            </div>
+
+            <div class="properties-table">
+                <h2>Propiedades Registradas (<span id="propertyCount">0</span>)</h2>
+                <div id="propertiesTable"></div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal para agregar/editar propiedad -->
+    <div id="propertyModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">Agregar Propiedad</h3>
+                <span class="close">&times;</span>
+            </div>
+            <form id="propertyForm">
+                <input type="hidden" id="propertyId">
+                
+                <div class="form-group">
+                    <label for="title">Título:</label>
+                    <input type="text" id="title" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="location">Ubicación:</label>
+                    <input type="text" id="location" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="image">Imagen:</label>
+                    <input type="file" id="image" accept="image/*">
+                    <div id="imagePreview"></div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="bedrooms">Dormitorios:</label>
+                        <input type="number" id="bedrooms" min="1" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="bathrooms">Baños:</label>
+                        <input type="number" id="bathrooms" min="1" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="area">Superficie (m²):</label>
+                        <input type="number" id="area" min="1" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="price">Precio (UF):</label>
+                        <input type="number" id="price" min="1" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="description">Descripción:</label>
+                    <textarea id="description" rows="4" placeholder="Descripción de la propiedad..."></textarea>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" id="btnCancel">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="admin.js"></script>
+</body>
+</html>

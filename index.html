@@ -22,6 +22,7 @@
                     <li><a href="#nosotros">Nosotros</a></li>
                     <li><a href="#propiedades">Propiedades</a></li>
                     <li><a href="#contacto">Contacto</a></li>
+                    <li><a href="login.html">Admin</a></li>
                 </ul>
             </div>
         </nav>
@@ -87,6 +88,43 @@
             </div>
         </div>
     </section>
+
+    <!-- Modal para ver propiedad en detalle -->
+    <div id="propertyDetailModal" class="property-modal">
+        <div class="property-modal-content">
+            <span class="property-close">&times;</span>
+            <div class="property-detail">
+                <div class="property-gallery">
+                    <div class="main-image">
+                        <img id="mainPropertyImage" src="" alt="">
+                    </div>
+                    <div class="thumbnail-gallery" id="thumbnailGallery">
+                        <!-- Thumbnails se cargarán aquí -->
+                    </div>
+                </div>
+                <div class="property-info-detail">
+                    <h2 id="detailTitle"></h2>
+                    <p id="detailLocation"></p>
+                    <div class="detail-specs">
+                        <div class="spec-item">
+                            <i class="fas fa-bed"></i>
+                            <span id="detailBedrooms"></span> Dormitorios
+                        </div>
+                        <div class="spec-item">
+                            <i class="fas fa-bath"></i>
+                            <span id="detailBathrooms"></span> Baños
+                        </div>
+                        <div class="spec-item">
+                            <i class="fas fa-ruler-combined"></i>
+                            <span id="detailArea"></span>m²
+                        </div>
+                    </div>
+                    <div class="detail-price" id="detailPrice"></div>
+                    <div class="detail-description" id="detailDescription"></div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <footer>
         <div class="container">

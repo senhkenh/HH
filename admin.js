@@ -1,0 +1,262 @@
+// Propiedades por defecto
+const defaultProperties = [
+    { id: 1, title: "Casa Moderna en Las Condes", location: "Las Condes, Santiago", image: "pexels-expect-best-79873-323772.jpg", bedrooms: 4, bathrooms: 3, area: 180, price: 8500 },
+    { id: 2, title: "Departamento Ejecutivo", location: "Providencia, Santiago", image: "pexels-expect-best-79873-323776.jpg", bedrooms: 2, bathrooms: 2, area: 85, price: 4200 },
+    { id: 3, title: "Casa Familiar con Jardín", location: "Ñuñoa, Santiago", image: "pexels-expect-best-79873-323780.jpg", bedrooms: 3, bathrooms: 2, area: 150, price: 6800 },
+    { id: 4, title: "Penthouse de Lujo", location: "Vitacura, Santiago", image: "pexels-binyaminmellish-1396132.jpg", bedrooms: 5, bathrooms: 4, area: 250, price: 15000 },
+    { id: 5, title: "Casa Estilo Colonial", location: "San Miguel, Santiago", image: "pexels-frans-van-heerden-201846-1438832.jpg", bedrooms: 3, bathrooms: 2, area: 120, price: 5500 },
+    { id: 6, title: "Departamento Vista Panorámica", location: "Las Condes, Santiago", image: "pexels-freestockpro-1172064.jpg", bedrooms: 3, bathrooms: 2, area: 110, price: 7200 },
+    { id: 7, title: "Casa Minimalista", location: "La Reina, Santiago", image: "pexels-jovydas-2462015.jpg", bedrooms: 4, bathrooms: 3, area: 200, price: 9800 },
+    { id: 8, title: "Loft Industrial", location: "Ñuñoa, Santiago", image: "pexels-luis-yanez-57302-206172.jpg", bedrooms: 1, bathrooms: 1, area: 65, price: 3200 },
+    { id: 9, title: "Casa Tradicional", location: "Maipú, Santiago", image: "pexels-pixabay-164558.jpg", bedrooms: 3, bathrooms: 2, area: 140, price: 5800 },
+    { id: 10, title: "Departamento Moderno", location: "Santiago Centro", image: "pexels-pixabay-208736.jpg", bedrooms: 2, bathrooms: 1, area: 75, price: 3800 },
+    { id: 11, title: "Casa con Piscina", location: "Lo Barnechea, Santiago", image: "pexels-pixabay-209296.jpg", bedrooms: 5, bathrooms: 4, area: 280, price: 18500 },
+    { id: 12, title: "Departamento Céntrico", location: "Providencia, Santiago", image: "pexels-pixabay-210617.jpg", bedrooms: 2, bathrooms: 2, area: 90, price: 4500 }
+];
+
+// Inicializar propiedades - siempre cargar las 24 completas
+function initializeProperties() {
+    localStorage.setItem('hemmelmann_properties', JSON.stringify(defaultProperties));
+    return [...defaultProperties];
+}
+
+// Almacenamiento local de propiedades
+let properties = initializeProperties();
+let editingId = null;
+
+// Elementos del DOM
+const modal = document.getElementById('propertyModal');
+const btnAddProperty = document.getElementById('btnAddProperty');
+const btnCancel = document.getElementById('btnCancel');
+const closeModal = document.querySelector('.close');
+const propertyForm = document.getElementById('propertyForm');
+const modalTitle = document.getElementById('modalTitle');
+const imageInput = document.getElementById('image');
+const imagePreview = document.getElementById('imagePreview');
+
+// Event Listeners
+btnAddProperty.addEventListener('click', openAddModal);
+btnCancel.addEventListener('click', closeModalHandler);
+closeModal.addEventListener('click', closeModalHandler);
+propertyForm.addEventListener('submit', saveProperty);
+imageInput.addEventListener('change', previewImage);
+
+window.addEventListener('click', function(event) {
+    if (event.target === modal) {
+        closeModalHandler();
+    }
+});
+
+// Funciones del modal
+function openAddModal() {
+    editingId = null;
+    modalTitle.textContent = 'Agregar Propiedad';
+    propertyForm.reset();
+    imagePreview.innerHTML = '';
+    modal.style.display = 'block';
+}
+
+function openEditModal(id) {
+    const property = properties.find(p => p.id === id);
+    if (!property) return;
+    
+    editingId = id;
+    modalTitle.textContent = 'Editar Propiedad';
+    
+    document.getElementById('propertyId').value = property.id;
+    document.getElementById('title').value = property.title;
+    document.getElementById('location').value = property.location;
+    document.getElementById('bedrooms').value = property.bedrooms;
+    document.getElementById('bathrooms').value = property.bathrooms;
+    document.getElementById('area').value = property.area;
+    document.getElementById('price').value = property.price;
+    document.getElementById('description').value = property.description || '';
+    
+    if (property.image) {
+        imagePreview.innerHTML = `<img src="${property.image}" alt="Preview">`;
+    }
+    
+    modal.style.display = 'block';
+}
+
+function closeModalHandler() {
+    modal.style.display = 'none';
+    editingId = null;
+    propertyForm.reset();
+    imagePreview.innerHTML = '';
+}
+
+// Función para previsualizar imagen
+function previewImage(event) {
+    const file = event.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            imagePreview.innerHTML = `<img src="${e.target.result}" alt="Preview">`;
+        };
+        reader.readAsDataURL(file);
+    }
+}
+
+// Función para guardar propiedad
+function saveProperty(event) {
+    event.preventDefault();
+    
+    const formData = new FormData(propertyForm);
+    const imageFile = imageInput.files[0];
+    
+    const propertyData = {
+        title: document.getElementById('title').value,
+        location: document.getElementById('location').value,
+        bedrooms: parseInt(document.getElementById('bedrooms').value),
+        bathrooms: parseInt(document.getElementById('bathrooms').value),
+        area: parseInt(document.getElementById('area').value),
+        price: parseInt(document.getElementById('price').value),
+        description: document.getElementById('description').value
+    };
+    
+    if (imageFile) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            propertyData.image = e.target.result;
+            savePropertyData(propertyData);
+        };
+        reader.readAsDataURL(imageFile);
+    } else {
+        if (editingId) {
+            const existingProperty = properties.find(p => p.id === editingId);
+            propertyData.image = existingProperty.image;
+        }
+        savePropertyData(propertyData);
+    }
+}
+
+function savePropertyData(propertyData) {
+    if (editingId) {
+        // Editar propiedad existente
+        const index = properties.findIndex(p => p.id === editingId);
+        properties[index] = { ...propertyData, id: editingId };
+    } else {
+        // Agregar nueva propiedad
+        propertyData.id = Date.now();
+        properties.push(propertyData);
+    }
+    
+    localStorage.setItem('hemmelmann_properties', JSON.stringify(properties));
+    closeModalHandler();
+    renderPropertiesTable();
+    
+    // Actualizar también el localStorage para la página principal
+    updateMainPageProperties();
+}
+
+// Función para eliminar propiedad
+function deleteProperty(id) {
+    if (confirm('¿Estás seguro de que quieres eliminar esta propiedad?')) {
+        properties = properties.filter(p => p.id !== id);
+        localStorage.setItem('hemmelmann_properties', JSON.stringify(properties));
+        renderPropertiesTable();
+        updateMainPageProperties();
+    }
+}
+
+// Función para renderizar la tabla de propiedades
+function renderPropertiesTable() {
+    const tableContainer = document.getElementById('propertiesTable');
+    const propertyCount = document.getElementById('propertyCount');
+    
+    if (propertyCount) {
+        propertyCount.textContent = properties.length;
+    }
+    
+    if (properties.length === 0) {
+        tableContainer.innerHTML = '<p>No hay propiedades registradas.</p>';
+        return;
+    }
+    
+    let tableHTML = `
+        <div class="table">
+            <div class="table-header">
+                <div>Imagen</div>
+                <div>Título</div>
+                <div>Ubicación</div>
+                <div>Dorm.</div>
+                <div>Baños</div>
+                <div>Área (m²)</div>
+                <div>Precio (UF)</div>
+                <div>Acciones</div>
+            </div>
+    `;
+    
+    properties.forEach(property => {
+        tableHTML += `
+            <div class="table-row">
+                <div>
+                    ${property.image ? `<img src="${property.image}" alt="${property.title}" class="property-image-small">` : 'Sin imagen'}
+                </div>
+                <div>${property.title}</div>
+                <div>${property.location}</div>
+                <div>${property.bedrooms}</div>
+                <div>${property.bathrooms}</div>
+                <div>${property.area}</div>
+                <div>${property.price.toLocaleString()}</div>
+                <div class="table-actions">
+                    <button class="btn btn-edit" onclick="openEditModal(${property.id})">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                    <button class="btn btn-danger" onclick="deleteProperty(${property.id})">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+            </div>
+        `;
+    });
+    
+    tableHTML += '</div>';
+    tableContainer.innerHTML = tableHTML;
+}
+
+// Función para actualizar las propiedades en la página principal
+function updateMainPageProperties() {
+    // Convertir las propiedades del admin al formato de la página principal
+    const mainPageProperties = properties.map(property => ({
+        id: property.id,
+        title: property.title,
+        location: property.location,
+        image: property.image || 'pexels-pixabay-164558.jpg', // imagen por defecto
+        bedrooms: property.bedrooms,
+        bathrooms: property.bathrooms,
+        area: property.area,
+        price: property.price
+    }));
+    
+    localStorage.setItem('main_properties', JSON.stringify(mainPageProperties));
+}
+
+// Verificar autenticación
+function checkAuth() {
+    const isLoggedIn = sessionStorage.getItem('admin_logged_in');
+    if (!isLoggedIn) {
+        window.location.href = 'login.html';
+        return false;
+    }
+    return true;
+}
+
+// Función para cerrar sesión
+function logout() {
+    sessionStorage.removeItem('admin_logged_in');
+    window.location.href = 'login.html';
+}
+
+
+
+// Inicializar la página
+document.addEventListener('DOMContentLoaded', function() {
+    if (checkAuth()) {
+        // Asegurar que las propiedades por defecto estén disponibles
+        properties = initializeProperties();
+        updateMainPageProperties();
+        renderPropertiesTable();
+    }
+});

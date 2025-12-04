@@ -245,7 +245,7 @@ const properties = [
 // Función para crear una tarjeta de propiedad
 function createPropertyCard(property) {
     return `
-        <div class="property-card">
+        <div class="property-card" onclick="openPropertyDetail(${property.id})">
             <img src="${property.image}" alt="${property.title}" class="property-image">
             <div class="property-info">
                 <h3 class="property-title">${property.title}</h3>
@@ -273,8 +273,51 @@ function createPropertyCard(property) {
     `;
 }
 
+// Función para abrir el detalle de la propiedad
+function openPropertyDetail(propertyId) {
+    const property = properties.find(p => p.id === propertyId);
+    if (!property) return;
+    
+    // Crear galería de imágenes (repetir la imagen 5 veces)
+    const gallery = Array(5).fill(property.image);
+    
+    // Llenar el modal con los datos
+    document.getElementById('detailTitle').textContent = property.title;
+    document.getElementById('detailLocation').textContent = property.location;
+    document.getElementById('detailBedrooms').textContent = property.bedrooms;
+    document.getElementById('detailBathrooms').textContent = property.bathrooms;
+    document.getElementById('detailArea').textContent = property.area;
+    document.getElementById('detailPrice').textContent = `${property.price.toLocaleString()} UF`;
+    document.getElementById('detailDescription').textContent = property.description || 'Hermosa propiedad en excelente ubicación, ideal para familias que buscan comodidad y calidad de vida.';
+    
+    // Configurar imagen principal
+    const mainImage = document.getElementById('mainPropertyImage');
+    mainImage.src = property.image;
+    mainImage.alt = property.title;
+    
+    // Crear thumbnails
+    const thumbnailGallery = document.getElementById('thumbnailGallery');
+    thumbnailGallery.innerHTML = gallery.map((img, index) => 
+        `<img src="${img}" alt="${property.title} ${index + 1}" class="thumbnail" onclick="changeMainImage('${img}')">`
+    ).join('');
+    
+    // Mostrar modal
+    document.getElementById('propertyDetailModal').style.display = 'block';
+}
+
+// Función para cambiar imagen principal
+function changeMainImage(imageSrc) {
+    document.getElementById('mainPropertyImage').src = imageSrc;
+}
+
+// Función para cerrar modal
+function closePropertyModal() {
+    document.getElementById('propertyDetailModal').style.display = 'none';
+}
+
 // Función para cargar las propiedades
 function loadProperties() {
+    // Siempre mostrar las 24 propiedades por defecto
     const propertiesGrid = document.getElementById('propertiesGrid');
     const propertiesHTML = properties.map(property => createPropertyCard(property)).join('');
     propertiesGrid.innerHTML = propertiesHTML;
@@ -306,5 +349,16 @@ function toggleMenu() {
 document.addEventListener('DOMContentLoaded', function() {
     loadProperties();
     toggleMenu();
+    
+    // Event listener para cerrar modal
+    document.querySelector('.property-close').addEventListener('click', closePropertyModal);
+    
+    // Cerrar modal al hacer clic fuera
+    window.addEventListener('click', function(event) {
+        const modal = document.getElementById('propertyDetailModal');
+        if (event.target === modal) {
+            closePropertyModal();
+        }
+    });
 });
 
