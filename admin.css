@@ -257,10 +257,44 @@ body {
     margin-top: 0.5rem;
 }
 
-#imagePreview img {
-    max-width: 200px;
-    max-height: 150px;
+#imagePreview {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.preview-image-container {
+    position: relative;
+    display: inline-block;
+}
+
+.preview-image {
+    width: 100px;
+    height: 80px;
+    object-fit: cover;
     border-radius: 5px;
+    border: 2px solid #ddd;
+}
+
+.remove-image {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    font-size: 12px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.remove-image:hover {
+    background: #c82333;
 }
 
 .form-actions {

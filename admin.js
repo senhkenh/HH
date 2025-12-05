@@ -72,8 +72,18 @@ function openEditModal(id) {
     document.getElementById('price').value = property.price;
     document.getElementById('description').value = property.description || '';
     
-    if (property.image) {
-        imagePreview.innerHTML = `<img src="${property.image}" alt="Preview">`;
+    if (property.images && property.images.length > 0) {
+        imagePreview.innerHTML = property.images.map((img, index) => `
+            <div class="preview-image-container">
+                <img src="${img}" alt="Preview ${index + 1}" class="preview-image">
+            </div>
+        `).join('');
+    } else if (property.image) {
+        imagePreview.innerHTML = `
+            <div class="preview-image-container">
+                <img src="${property.image}" alt="Preview" class="preview-image">
+            </div>
+        `;
     }
     
     modal.style.display = 'block';
@@ -86,15 +96,36 @@ function closeModalHandler() {
     imagePreview.innerHTML = '';
 }
 
-// Función para previsualizar imagen
+// Función para previsualizar imágenes
 function previewImage(event) {
-    const file = event.target.files[0];
-    if (file) {
+    const files = Array.from(event.target.files).slice(0, 10); // Máximo 10 imágenes
+    imagePreview.innerHTML = '';
+    
+    if (files.length > 10) {
+        alert('Máximo 10 imágenes permitidas');
+        return;
+    }
+    
+    files.forEach((file, index) => {
         const reader = new FileReader();
         reader.onload = function(e) {
-            imagePreview.innerHTML = `<img src="${e.target.result}" alt="Preview">`;
+            const imgContainer = document.createElement('div');
+            imgContainer.className = 'preview-image-container';
+            imgContainer.innerHTML = `
+                <img src="${e.target.result}" alt="Preview ${index + 1}" class="preview-image">
+                <button type="button" class="remove-image" onclick="removePreviewImage(${index})">&times;</button>
+            `;
+            imagePreview.appendChild(imgContainer);
         };
         reader.readAsDataURL(file);
+    });
+}
+
+// Función para eliminar imagen de preview
+function removePreviewImage(index) {
+    const containers = imagePreview.querySelectorAll('.preview-image-container');
+    if (containers[index]) {
+        containers[index].remove();
     }
 }
 
@@ -103,7 +134,7 @@ function saveProperty(event) {
     event.preventDefault();
     
     const formData = new FormData(propertyForm);
-    const imageFile = imageInput.files[0];
+    const imageFiles = Array.from(imageInput.files).slice(0, 10);
     
     const propertyData = {
         title: document.getElementById('title').value,
@@ -115,16 +146,26 @@ function saveProperty(event) {
         description: document.getElementById('description').value
     };
     
-    if (imageFile) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            propertyData.image = e.target.result;
+    if (imageFiles.length > 0) {
+        const imagePromises = imageFiles.map(file => {
+            return new Promise((resolve) => {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    resolve(e.target.result);
+                };
+                reader.readAsDataURL(file);
+            });
+        });
+        
+        Promise.all(imagePromises).then(images => {
+            propertyData.images = images;
+            propertyData.image = images[0]; // Primera imagen como principal
             savePropertyData(propertyData);
-        };
-        reader.readAsDataURL(imageFile);
+        });
     } else {
         if (editingId) {
             const existingProperty = properties.find(p => p.id === editingId);
+            propertyData.images = existingProperty.images || [existingProperty.image];
             propertyData.image = existingProperty.image;
         }
         savePropertyData(propertyData);

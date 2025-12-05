@@ -275,11 +275,13 @@ function createPropertyCard(property) {
 
 // Función para abrir el detalle de la propiedad
 function openPropertyDetail(propertyId) {
-    const property = properties.find(p => p.id === propertyId);
+    const adminProperties = JSON.parse(localStorage.getItem('main_properties'));
+    const propertiesToSearch = adminProperties && adminProperties.length > 0 ? adminProperties : properties;
+    const property = propertiesToSearch.find(p => p.id === propertyId);
     if (!property) return;
     
-    // Crear galería de imágenes (repetir la imagen 5 veces)
-    const gallery = Array(5).fill(property.image);
+    // Usar imágenes múltiples si existen, sino repetir la principal
+    const gallery = property.images && property.images.length > 0 ? property.images : Array(5).fill(property.image);
     
     // Llenar el modal con los datos
     document.getElementById('detailTitle').textContent = property.title;
@@ -301,6 +303,14 @@ function openPropertyDetail(propertyId) {
         `<img src="${img}" alt="${property.title} ${index + 1}" class="thumbnail" onclick="changeMainImage('${img}')">`
     ).join('');
     
+    // Marcar el primer thumbnail como activo
+    setTimeout(() => {
+        const firstThumbnail = thumbnailGallery.querySelector('.thumbnail');
+        if (firstThumbnail) {
+            firstThumbnail.classList.add('active');
+        }
+    }, 100);
+    
     // Mostrar modal
     document.getElementById('propertyDetailModal').style.display = 'block';
 }
@@ -317,9 +327,12 @@ function closePropertyModal() {
 
 // Función para cargar las propiedades
 function loadProperties() {
-    // Siempre mostrar las 24 propiedades por defecto
+    // Cargar propiedades del admin si existen, sino usar las por defecto
+    const adminProperties = JSON.parse(localStorage.getItem('main_properties'));
+    const propertiesToShow = adminProperties && adminProperties.length > 0 ? adminProperties : properties;
+    
     const propertiesGrid = document.getElementById('propertiesGrid');
-    const propertiesHTML = properties.map(property => createPropertyCard(property)).join('');
+    const propertiesHTML = propertiesToShow.map(property => createPropertyCard(property)).join('');
     propertiesGrid.innerHTML = propertiesHTML;
 }
 
