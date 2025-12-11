@@ -3,15 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hemmelmann - Bienes Raíces</title>
+    <title>Hemmelmann Haus - Asesoría & Inmobiliaria</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header>
         <nav class="navbar">
             <div class="nav-container">
-                <h1 class="logo">Hemmelmann</h1>
+                <h1 class="logo"><img src="https://cdn-icons-png.flaticon.com/512/1946/1946436.png" alt="House" class="logo-shield"><span class="logo-bold">Hemmelmann Haus</span> - <span class="logo-light">Asesoría & Inmobiliaria</span></h1>
                 <div class="hamburger" id="hamburger">
                     <span></span>
                     <span></span>
@@ -19,46 +22,126 @@
                 </div>
                 <ul class="nav-menu" id="navMenu">
                     <li><a href="#inicio">Inicio</a></li>
-                    <li><a href="#nosotros">Nosotros</a></li>
+                    <li><a href="nosotros.html">Nosotros</a></li>
                     <li><a href="#propiedades">Propiedades</a></li>
-                    <li><a href="#contacto">Contacto</a></li>
+                    <li><a href="contacto.html">Contacto</a></li>
+                    <li><a href="vende-tu-propiedad.html">Vende tu Propiedad</a></li>
                     <li><a href="login.html">Admin</a></li>
                 </ul>
             </div>
         </nav>
+        <div class="nav-decorative-bars">
+            <div class="nav-bar-black"></div>
+            <div class="nav-bar-yellow"></div>
+            <div class="nav-bar-red"></div>
+        </div>
     </header>
 
     <section id="inicio" class="hero">
         <div class="hero-content">
             <h2>Tu hogar ideal te está esperando</h2>
             <p>Encuentra la propiedad perfecta con Hemmelmann, tu inmobiliaria de confianza en Puerto Montt</p>
-            <div class="hero-features">
-                <div class="feature">
-                    <i class="fas fa-home"></i>
-                    <span>+500 Propiedades</span>
-                </div>
-                <div class="feature">
-                    <i class="fas fa-users"></i>
-                    <span>Clientes Satisfechos</span>
-                </div>
-                <div class="feature">
-                    <i class="fas fa-award"></i>
-                    <span>15 Años de Experiencia</span>
+            
+            <!-- Buscador en Hero -->
+            <div class="hero-search-container">
+                <div class="search-filters">
+                    <div class="filter-group">
+                        <select id="filterTransaction">
+                            <option value="">Tipo de Transacción</option>
+                            <option value="venta">Venta</option>
+                            <option value="arriendo">Arriendo</option>
+                            <option value="transaccion">Transacción</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <select id="filterType">
+                            <option value="">Tipo de Propiedad</option>
+                            <option value="bodega">Bodega</option>
+                            <option value="cabaña">Cabaña</option>
+                            <option value="campo">Campo</option>
+                            <option value="casa">Casa</option>
+                            <option value="departamento">Departamento</option>
+                            <option value="edificios">Edificios</option>
+                            <option value="industrial">Industrial</option>
+                            <option value="local comercial">Local Comercial</option>
+                            <option value="oficina">Oficina</option>
+                            <option value="otras propiedades">Otras propiedades</option>
+                            <option value="parcela">Parcela</option>
+                            <option value="propiedad comercial">Propiedad comercial</option>
+                            <option value="propiedad para inversión">Propiedad para inversión</option>
+                            <option value="propiedad turística">Propiedad turística</option>
+                            <option value="proyectos comerciales">Proyectos comerciales</option>
+                            <option value="sitios">Sitios</option>
+                            <option value="terrenos industriales">Terrenos industriales</option>
+                            <option value="terrenos para proyectos inmobiliarios o comerciales">Terrenos para proyectos inmobiliarios o comerciales</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <select id="filterLocation">
+                            <option value="">Ubicación</option>
+                            <option value="puerto montt">Puerto Montt</option>
+                            <option value="puerto varas">Puerto Varas</option>
+                            <option value="frutillar">Frutillar</option>
+                            <option value="osorno">Osorno</option>
+                            <option value="castro">Castro</option>
+                            <option value="ancud">Ancud</option>
+                            <option value="llanquihue">Llanquihue</option>
+                            <option value="los muermos">Los Muermos</option>
+                            <option value="fresia">Fresia</option>
+                            <option value="río negro">Río Negro</option>
+                            <option value="purranque">Purranque</option>
+                            <option value="puyehue">Puyehue</option>
+                            <option value="san pablo">San Pablo</option>
+                            <option value="san juan de la costa">San Juan de la Costa</option>
+                            <option value="dalcahue">Dalcahue</option>
+                            <option value="curaco de vélez">Curaco de Vélez</option>
+                            <option value="quinchao">Quinchao</option>
+                            <option value="puqueldón">Puqueldón</option>
+                            <option value="chonchi">Chonchi</option>
+                            <option value="quemchi">Quemchi</option>
+                            <option value="quellón">Quellón</option>
+                            <option value="queilén">Queilén</option>
+                            <option value="chaitén">Chaitén</option>
+                            <option value="futaleufú">Futaleufú</option>
+                            <option value="hualaihué">Hualaihué</option>
+                            <option value="palena">Palena</option>
+                            <option value="panitao">Panitao</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <select id="filterBedrooms">
+                            <option value="">Dormitorios</option>
+                            <option value="1">1+</option>
+                            <option value="2">2+</option>
+                            <option value="3">3+</option>
+                            <option value="4">4+</option>
+                            <option value="5">5+</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group price-range">
+                        <div class="price-inputs">
+                            <input type="number" id="priceMin" placeholder="Precio Mín (UF)">
+                            <input type="number" id="priceMax" placeholder="Precio Máx (UF)">
+                        </div>
+                    </div>
+                    
+                    <button id="searchBtn" class="search-btn">
+                        <i class="fas fa-search"></i> Buscar
+                    </button>
+                    
+                    <button id="clearBtn" class="clear-btn">
+                        <i class="fas fa-times"></i> Limpiar
+                    </button>
                 </div>
             </div>
-            <a href="#propiedades" class="cta-button">Ver Propiedades</a>
         </div>
     </section>
 
-    <section id="nosotros" class="about">
-        <div class="container">
-            <h2>Sobre Nosotros</h2>
-            <div class="about-content">
-                <p>Somos descendientes de una familia, del sur de Chile, pioneros en uso de la greda en la ciudad de nacimiento, ahora dedicados a la gestión inmobiliaria y la construcción de soluciones innovadoras para rentabilizar tu inversión.</p>
-                <p>Empresa de descendientes de alemanes del sur de Chile, con espíritu de trabajo, conocimiento y responsabilidad, agregando valor a tu inversión, mejorando tus proyectos, siempre preocupados del bienestar de las personas, de la sociedad y del cuidado del medio ambiente.</p>
-            </div>
-        </div>
-    </section>
+
 
     <section id="propiedades" class="properties">
         <div class="container">
@@ -115,6 +198,10 @@
                             <span id="detailBathrooms"></span> Baños
                         </div>
                         <div class="spec-item">
+                            <i class="fas fa-car"></i>
+                            <span id="detailParking"></span> Estacionamientos
+                        </div>
+                        <div class="spec-item">
                             <i class="fas fa-ruler-combined"></i>
                             <span id="detailArea"></span>m²
                         </div>
@@ -128,7 +215,48 @@
 
     <footer>
         <div class="container">
-            <p>&copy; 2025 Hemmelmann. Todos los derechos reservados.</p>
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Hemmelmann Haus</h3>
+                    <p>Tu inmobiliaria de confianza en Puerto Montt. Especialistas en compra, venta y asesoría inmobiliaria en la Región de Los Lagos.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Servicios</h3>
+                    <ul>
+                        <li><a href="index.html#propiedades">Compra de Propiedades</a></li>
+                        <li><a href="vende-tu-propiedad.html">Venta de Propiedades</a></li>
+                        <li><a href="contacto.html">Asesoría Inmobiliaria</a></li>
+                        <li><a href="contacto.html">Inversión Inmobiliaria</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Ubicaciones</h3>
+                    <ul>
+                        <li>Puerto Montt</li>
+                        <li>Puerto Varas</li>
+                        <li>Frutillar</li>
+                        <li>Osorno</li>
+                        <li>Castro</li>
+                        <li>Ancud</li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Contacto</h3>
+                    <ul>
+                        <li><i class="fas fa-phone"></i> +56 958451022</li>
+                        <li><i class="fas fa-envelope"></i> contacto@hemmelmann.cl</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Av. Diego Portales 1234, Puerto Montt</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Hemmelmann Haus. Todos los derechos reservados.</p>
+                <div class="footer-legal">
+                    <a href="terminos-condiciones.html">Términos y Condiciones</a>
+                    <a href="politica-privacidad.html">Política de Privacidad</a>
+                    <a href="mapa-sitio.html">Mapa del Sitio</a>
+                </div>
+            </div>
         </div>
     </footer>
 

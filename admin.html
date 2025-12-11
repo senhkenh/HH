@@ -76,6 +76,13 @@
 
                 <div class="form-row">
                     <div class="form-group">
+                        <label for="parking">Estacionamientos:</label>
+                        <input type="number" id="parking" min="0" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
                         <label for="area">Superficie (m²):</label>
                         <input type="number" id="area" min="1" required>
                     </div>
@@ -83,6 +90,40 @@
                         <label for="price">Precio (UF):</label>
                         <input type="number" id="price" min="1" required>
                     </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="propertyType">Tipo de Propiedad:</label>
+                    <select id="propertyType" required>
+                        <option value="">Seleccionar tipo</option>
+                        <option value="bodega">Bodega</option>
+                        <option value="cabaña">Cabaña</option>
+                        <option value="campo">Campo</option>
+                        <option value="casa">Casa</option>
+                        <option value="departamento">Departamento</option>
+                        <option value="edificios">Edificios</option>
+                        <option value="industrial">Industrial</option>
+                        <option value="local comercial">Local Comercial</option>
+                        <option value="oficina">Oficina</option>
+                        <option value="otras propiedades">Otras propiedades</option>
+                        <option value="parcela">Parcela</option>
+                        <option value="propiedad comercial">Propiedad comercial</option>
+                        <option value="propiedad para inversión">Propiedad para inversión</option>
+                        <option value="propiedad turística">Propiedad turística</option>
+                        <option value="proyectos comerciales">Proyectos comerciales</option>
+                        <option value="sitios">Sitios</option>
+                        <option value="terrenos industriales">Terrenos industriales</option>
+                        <option value="terrenos para proyectos inmobiliarios o comerciales">Terrenos para proyectos inmobiliarios o comerciales</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="transactionType">Tipo de Transacción:</label>
+                    <select id="transactionType" required>
+                        <option value="venta">Venta</option>
+                        <option value="arriendo">Arriendo</option>
+                        <option value="transaccion">Transacción</option>
+                    </select>
                 </div>
 
                 <div class="form-group">

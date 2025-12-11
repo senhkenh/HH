@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mapa del Sitio - Hemmelmann Haus</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .sitemap-page {
+            padding: 150px 0 80px 0;
+            background: white;
+            min-height: 100vh;
+        }
+        .sitemap-content {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .sitemap-content h1 {
+            color: #4062BB;
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+        .sitemap-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        .sitemap-section {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 10px;
+            border-left: 4px solid #4062BB;
+        }
+        .sitemap-section h2 {
+            color: #FF101F;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+        .sitemap-section ul {
+            list-style: none;
+            padding: 0;
+        }
+        .sitemap-section li {
+            margin-bottom: 0.5rem;
+        }
+        .sitemap-section a {
+            color: #4062BB;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .sitemap-section a:hover {
+            color: #FF101F;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="nav-container">
+                <h1 class="logo"><img src="https://cdn-icons-png.flaticon.com/512/1946/1946436.png" alt="House" class="logo-shield"><span class="logo-bold">Hemmelmann Haus</span> - <span class="logo-light">Asesoría & Inmobiliaria</span></h1>
+                <div class="hamburger" id="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="nosotros.html">Nosotros</a></li>
+                    <li><a href="index.html#propiedades">Propiedades</a></li>
+                    <li><a href="contacto.html">Contacto</a></li>
+                    <li><a href="vende-tu-propiedad.html">Vende tu Propiedad</a></li>
+                    <li><a href="login.html">Admin</a></li>
+                </ul>
+            </div>
+        </nav>
+        <div class="nav-decorative-bars">
+            <div class="nav-bar-black"></div>
+            <div class="nav-bar-yellow"></div>
+            <div class="nav-bar-red"></div>
+        </div>
+    </header>
+
+    <section class="sitemap-page">
+        <div class="container">
+            <div class="sitemap-content">
+                <h1>Mapa del Sitio</h1>
+                
+                <div class="sitemap-grid">
+                    <div class="sitemap-section">
+                        <h2><i class="fas fa-home"></i> Páginas Principales</h2>
+                        <ul>
+                            <li><a href="index.html">Inicio</a></li>
+                            <li><a href="nosotros.html">Nosotros</a></li>
+                            <li><a href="index.html#propiedades">Propiedades</a></li>
+                            <li><a href="contacto.html">Contacto</a></li>
+                            <li><a href="vende-tu-propiedad.html">Vende tu Propiedad</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="sitemap-section">
+                        <h2><i class="fas fa-building"></i> Servicios</h2>
+                        <ul>
+                            <li><a href="index.html#propiedades">Compra de Propiedades</a></li>
+                            <li><a href="vende-tu-propiedad.html">Venta de Propiedades</a></li>
+                            <li><a href="contacto.html">Asesoría Inmobiliaria</a></li>
+                            <li><a href="contacto.html">Inversión Inmobiliaria</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="sitemap-section">
+                        <h2><i class="fas fa-map-marker-alt"></i> Ubicaciones</h2>
+                        <ul>
+                            <li>Puerto Montt</li>
+                            <li>Puerto Varas</li>
+                            <li>Frutillar</li>
+                            <li>Osorno</li>
+                            <li>Castro</li>
+                            <li>Ancud</li>
+                        </ul>
+                    </div>
+
+                    <div class="sitemap-section">
+                        <h2><i class="fas fa-cog"></i> Administración</h2>
+                        <ul>
+                            <li><a href="login.html">Login Admin</a></li>
+                            <li><a href="admin.html">Panel Administrativo</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="sitemap-section">
+                        <h2><i class="fas fa-gavel"></i> Legal</h2>
+                        <ul>
+                            <li><a href="terminos-condiciones.html">Términos y Condiciones</a></li>
+                            <li><a href="politica-privacidad.html">Política de Privacidad</a></li>
+                            <li><a href="mapa-sitio.html">Mapa del Sitio</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="sitemap-section">
+                        <h2><i class="fas fa-phone"></i> Contacto</h2>
+                        <ul>
+                            <li>Teléfono: +56 958451022</li>
+                            <li>Email: contacto@hemmelmann.cl</li>
+                            <li>Dirección: Av. Diego Portales 1234, Puerto Montt</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Hemmelmann. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="main.js"></script>
+</body>
+</html>

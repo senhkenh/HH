@@ -244,8 +244,30 @@ const properties = [
 
 // Función para crear una tarjeta de propiedad
 function createPropertyCard(property) {
+    const transactionType = property.transactionType || 'venta';
+    let transactionLabel, priceLabel;
+    
+    switch(transactionType) {
+        case 'venta':
+            transactionLabel = 'Venta';
+            priceLabel = 'UF';
+            break;
+        case 'arriendo':
+            transactionLabel = 'Arriendo';
+            priceLabel = 'UF/mes';
+            break;
+        case 'transaccion':
+            transactionLabel = 'Transacción';
+            priceLabel = 'UF';
+            break;
+        default:
+            transactionLabel = 'Venta';
+            priceLabel = 'UF';
+    }
+    
     return `
         <div class="property-card" onclick="openPropertyDetail(${property.id})">
+            <div class="property-badge">${transactionLabel}</div>
             <img src="${property.image}" alt="${property.title}" class="property-image">
             <div class="property-info">
                 <h3 class="property-title">${property.title}</h3>
@@ -262,12 +284,17 @@ function createPropertyCard(property) {
                         <span>Baños</span>
                     </div>
                     <div class="detail-item">
+                        <i class="fas fa-car"></i>
+                        <span class="detail-value">${property.parking || 0}</span>
+                        <span>Estacionamientos</span>
+                    </div>
+                    <div class="detail-item">
                         <i class="fas fa-ruler-combined"></i>
                         <span class="detail-value">${property.area}m²</span>
                         <span>Superficie</span>
                     </div>
                 </div>
-                <div class="property-price">${property.price.toLocaleString()} UF</div>
+                <div class="property-price">${property.price.toLocaleString()} ${priceLabel}</div>
             </div>
         </div>
     `;
@@ -288,6 +315,7 @@ function openPropertyDetail(propertyId) {
     document.getElementById('detailLocation').textContent = property.location;
     document.getElementById('detailBedrooms').textContent = property.bedrooms;
     document.getElementById('detailBathrooms').textContent = property.bathrooms;
+    document.getElementById('detailParking').textContent = property.parking || 0;
     document.getElementById('detailArea').textContent = property.area;
     document.getElementById('detailPrice').textContent = `${property.price.toLocaleString()} UF`;
     document.getElementById('detailDescription').textContent = property.description || 'Hermosa propiedad en excelente ubicación, ideal para familias que buscan comodidad y calidad de vida.';
@@ -329,11 +357,10 @@ function closePropertyModal() {
 function loadProperties() {
     // Cargar propiedades del admin si existen, sino usar las por defecto
     const adminProperties = JSON.parse(localStorage.getItem('main_properties'));
-    const propertiesToShow = adminProperties && adminProperties.length > 0 ? adminProperties : properties;
+    allProperties = adminProperties && adminProperties.length > 0 ? adminProperties : properties;
+    filteredProperties = [...allProperties];
     
-    const propertiesGrid = document.getElementById('propertiesGrid');
-    const propertiesHTML = propertiesToShow.map(property => createPropertyCard(property)).join('');
-    propertiesGrid.innerHTML = propertiesHTML;
+    renderProperties(allProperties);
 }
 
 
@@ -358,10 +385,83 @@ function toggleMenu() {
     });
 }
 
+// Variables globales para filtros
+let allProperties = [];
+let filteredProperties = [];
+
+// Función para filtrar propiedades
+function filterProperties() {
+    const transaction = document.getElementById('filterTransaction').value.toLowerCase();
+    const type = document.getElementById('filterType').value.toLowerCase();
+    const location = document.getElementById('filterLocation').value.toLowerCase();
+    const bedrooms = document.getElementById('filterBedrooms').value;
+    const priceMin = document.getElementById('priceMin').value;
+    const priceMax = document.getElementById('priceMax').value;
+    
+    filteredProperties = allProperties.filter(property => {
+        // Filtro por tipo de transacción
+        if (transaction && property.transactionType && property.transactionType.toLowerCase() !== transaction) {
+            return false;
+        }
+        
+        // Filtro por tipo
+        if (type && !property.title.toLowerCase().includes(type)) {
+            return false;
+        }
+        
+        // Filtro por ubicación
+        if (location && !property.location.toLowerCase().includes(location)) {
+            return false;
+        }
+        
+        // Filtro por dormitorios
+        if (bedrooms && property.bedrooms < parseInt(bedrooms)) {
+            return false;
+        }
+        
+        // Filtro por precio mínimo
+        if (priceMin && property.price < parseInt(priceMin)) {
+            return false;
+        }
+        
+        // Filtro por precio máximo
+        if (priceMax && property.price > parseInt(priceMax)) {
+            return false;
+        }
+        
+        return true;
+    });
+    
+    renderProperties(filteredProperties);
+}
+
+// Función para renderizar propiedades
+function renderProperties(propertiesToRender) {
+    const propertiesGrid = document.getElementById('propertiesGrid');
+    const propertiesHTML = propertiesToRender.map(property => createPropertyCard(property)).join('');
+    propertiesGrid.innerHTML = propertiesHTML;
+}
+
+// Función para limpiar filtros
+function clearFilters() {
+    document.getElementById('filterTransaction').value = '';
+    document.getElementById('filterType').value = '';
+    document.getElementById('filterLocation').value = '';
+    document.getElementById('filterBedrooms').value = '';
+    document.getElementById('priceMin').value = '';
+    document.getElementById('priceMax').value = '';
+    
+    renderProperties(allProperties);
+}
+
 // Inicializar la página
 document.addEventListener('DOMContentLoaded', function() {
     loadProperties();
     toggleMenu();
+    
+    // Event listeners para filtros
+    document.getElementById('searchBtn').addEventListener('click', filterProperties);
+    document.getElementById('clearBtn').addEventListener('click', clearFilters);
     
     // Event listener para cerrar modal
     document.querySelector('.property-close').addEventListener('click', closePropertyModal);

@@ -66,10 +66,13 @@ function openEditModal(id) {
     document.getElementById('propertyId').value = property.id;
     document.getElementById('title').value = property.title;
     document.getElementById('location').value = property.location;
+    document.getElementById('propertyType').value = property.type || 'casa';
     document.getElementById('bedrooms').value = property.bedrooms;
     document.getElementById('bathrooms').value = property.bathrooms;
+    document.getElementById('parking').value = property.parking || 0;
     document.getElementById('area').value = property.area;
     document.getElementById('price').value = property.price;
+    document.getElementById('transactionType').value = property.transactionType || 'venta';
     document.getElementById('description').value = property.description || '';
     
     if (property.images && property.images.length > 0) {
@@ -139,10 +142,13 @@ function saveProperty(event) {
     const propertyData = {
         title: document.getElementById('title').value,
         location: document.getElementById('location').value,
+        type: document.getElementById('propertyType').value,
         bedrooms: parseInt(document.getElementById('bedrooms').value),
         bathrooms: parseInt(document.getElementById('bathrooms').value),
+        parking: parseInt(document.getElementById('parking').value),
         area: parseInt(document.getElementById('area').value),
         price: parseInt(document.getElementById('price').value),
+        transactionType: document.getElementById('transactionType').value,
         description: document.getElementById('description').value
     };
     
@@ -221,8 +227,11 @@ function renderPropertiesTable() {
                 <div>Imagen</div>
                 <div>Título</div>
                 <div>Ubicación</div>
+                <div>Tipo</div>
+                <div>Transacción</div>
                 <div>Dorm.</div>
                 <div>Baños</div>
+                <div>Estac.</div>
                 <div>Área (m²)</div>
                 <div>Precio (UF)</div>
                 <div>Acciones</div>
@@ -237,8 +246,11 @@ function renderPropertiesTable() {
                 </div>
                 <div>${property.title}</div>
                 <div>${property.location}</div>
+                <div>${property.type || 'Casa'}</div>
+                <div>${property.transactionType || 'Venta'}</div>
                 <div>${property.bedrooms}</div>
                 <div>${property.bathrooms}</div>
+                <div>${property.parking || 0}</div>
                 <div>${property.area}</div>
                 <div>${property.price.toLocaleString()}</div>
                 <div class="table-actions">

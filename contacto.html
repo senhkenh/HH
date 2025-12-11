@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacto - Hemmelmann Haus</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .contact-form-page {
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('fondo1.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            min-height: 100vh;
+            padding: 150px 0 80px 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .contact-form-container {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 3rem;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            max-width: 800px;
+            margin: 0 auto;
+            backdrop-filter: blur(10px);
+        }
+
+        .contact-form-header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .contact-form-header h1 {
+            color: #4062BB;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: 900;
+        }
+
+        .contact-form-header p {
+            color: #666;
+            font-size: 1.1rem;
+            font-weight: 300;
+        }
+
+        .contact-form {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            font-weight: 700;
+            color: #4062BB;
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            padding: 1rem;
+            border: 2px solid #e5e5e5;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-family: 'Roboto', sans-serif;
+            transition: all 0.3s;
+            background: white;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #4062BB;
+            box-shadow: 0 0 0 3px rgba(64, 98, 187, 0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .submit-btn {
+            background: #FF101F;
+            color: white;
+            padding: 1.2rem 2rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 1rem;
+        }
+
+        .submit-btn:hover {
+            background: #DC0E1A;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 16, 31, 0.3);
+        }
+
+        .contact-info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 2px solid #e5e5e5;
+        }
+
+        .contact-info-item {
+            text-align: center;
+            padding: 1rem;
+        }
+
+        .contact-info-item i {
+            font-size: 2rem;
+            color: #4062BB;
+            margin-bottom: 1rem;
+        }
+
+        .contact-info-item h3 {
+            color: #4062BB;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        .contact-info-item p {
+            color: #666;
+            font-weight: 300;
+        }
+
+        @media (max-width: 768px) {
+            .contact-form-container {
+                margin: 0 1rem;
+                padding: 2rem;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-form-header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="nav-container">
+                <h1 class="logo"><img src="https://cdn-icons-png.flaticon.com/512/1946/1946436.png" alt="House" class="logo-shield"><span class="logo-bold">Hemmelmann Haus</span> - <span class="logo-light">Asesoría & Inmobiliaria</span></h1>
+                <div class="hamburger" id="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="nosotros.html">Nosotros</a></li>
+                    <li><a href="index.html#propiedades">Propiedades</a></li>
+                    <li><a href="contacto.html">Contacto</a></li>
+                    <li><a href="login.html">Admin</a></li>
+                </ul>
+            </div>
+        </nav>
+        <div class="nav-decorative-bars">
+            <div class="nav-bar-black"></div>
+            <div class="nav-bar-yellow"></div>
+            <div class="nav-bar-red"></div>
+        </div>
+    </header>
+
+    <section class="contact-form-page">
+        <div class="container">
+            <div class="contact-form-container">
+                <div class="contact-form-header">
+                    <h1>Contáctanos</h1>
+                    <p>Estamos aquí para ayudarte a encontrar la propiedad perfecta. Completa el formulario y nos pondremos en contacto contigo a la brevedad.</p>
+                </div>
+
+                <form class="contact-form" id="contactForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="firstName">Nombre *</label>
+                            <input type="text" id="firstName" name="firstName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName">Apellido *</label>
+                            <input type="text" id="lastName" name="lastName" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="email">Email *</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Teléfono</label>
+                            <input type="tel" id="phone" name="phone">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="interest">Tipo de Interés</label>
+                        <select id="interest" name="interest">
+                            <option value="">Seleccionar...</option>
+                            <option value="compra">Compra de Propiedad</option>
+                            <option value="venta">Venta de Propiedad</option>
+                            <option value="arriendo">Arriendo</option>
+                            <option value="inversion">Inversión Inmobiliaria</option>
+                            <option value="asesoria">Asesoría General</option>
+                            <option value="otro">Otro</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="budget">Presupuesto (UF)</label>
+                        <select id="budget" name="budget">
+                            <option value="">Seleccionar rango...</option>
+                            <option value="0-2000">Hasta 2.000 UF</option>
+                            <option value="2000-5000">2.000 - 5.000 UF</option>
+                            <option value="5000-10000">5.000 - 10.000 UF</option>
+                            <option value="10000-20000">10.000 - 20.000 UF</option>
+                            <option value="20000+">Más de 20.000 UF</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message">Mensaje *</label>
+                        <textarea id="message" name="message" placeholder="Cuéntanos más sobre lo que buscas..." required></textarea>
+                    </div>
+
+                    <button type="submit" class="submit-btn">
+                        <i class="fas fa-paper-plane"></i> Enviar Mensaje
+                    </button>
+                </form>
+
+                <div class="contact-info-grid">
+                    <div class="contact-info-item">
+                        <i class="fas fa-phone"></i>
+                        <h3>Teléfono</h3>
+                        <p>+56 958451022</p>
+                    </div>
+                    <div class="contact-info-item">
+                        <i class="fas fa-envelope"></i>
+                        <h3>Email</h3>
+                        <p>contacto@hemmelmann.cl</p>
+                    </div>
+                    <div class="contact-info-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <h3>Dirección</h3>
+                        <p>Av. Diego Portales 1234<br>Puerto Montt</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Hemmelmann. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="main.js"></script>
+    <script>
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Simulate form submission
+            const submitBtn = document.querySelector('.submit-btn');
+            const originalText = submitBtn.innerHTML;
+            
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
+            submitBtn.disabled = true;
+            
+            setTimeout(() => {
+                alert('¡Gracias por contactarnos! Nos pondremos en contacto contigo pronto.');
+                this.reset();
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+            }, 2000);
+        });
+    </script>
+</body>
+</html>
