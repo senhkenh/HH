@@ -366,23 +366,33 @@ function loadProperties() {
 
 
 // Menú hamburger
-function toggleMenu() {
+function initializeHamburgerMenu() {
     const hamburger = document.getElementById('hamburger');
     const navMenu = document.getElementById('navMenu');
     
-    hamburger.addEventListener('click', function() {
-        hamburger.classList.toggle('active');
-        navMenu.classList.toggle('active');
-    });
-    
-    // Cerrar menú al hacer clic en un enlace
-    const navLinks = document.querySelectorAll('.nav-menu a');
-    navLinks.forEach(link => {
-        link.addEventListener('click', function() {
-            hamburger.classList.remove('active');
-            navMenu.classList.remove('active');
+    if (hamburger && navMenu) {
+        hamburger.addEventListener('click', function() {
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
         });
-    });
+        
+        // Cerrar menú al hacer clic en un enlace
+        const navLinks = document.querySelectorAll('.nav-menu a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+            });
+        });
+        
+        // Cerrar menú al hacer clic fuera
+        document.addEventListener('click', function(event) {
+            if (!hamburger.contains(event.target) && !navMenu.contains(event.target)) {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+            }
+        });
+    }
 }
 
 // Variables globales para filtros
@@ -456,22 +466,38 @@ function clearFilters() {
 
 // Inicializar la página
 document.addEventListener('DOMContentLoaded', function() {
-    loadProperties();
-    toggleMenu();
+    // Siempre inicializar el menú hamburguesa
+    initializeHamburgerMenu();
     
-    // Event listeners para filtros
-    document.getElementById('searchBtn').addEventListener('click', filterProperties);
-    document.getElementById('clearBtn').addEventListener('click', clearFilters);
+    // Solo cargar propiedades si estamos en la página principal
+    if (document.getElementById('propertiesGrid')) {
+        loadProperties();
+    }
     
-    // Event listener para cerrar modal
-    document.querySelector('.property-close').addEventListener('click', closePropertyModal);
+    // Event listeners para filtros (solo si existen)
+    const searchBtn = document.getElementById('searchBtn');
+    const clearBtn = document.getElementById('clearBtn');
+    if (searchBtn) {
+        searchBtn.addEventListener('click', filterProperties);
+    }
+    if (clearBtn) {
+        clearBtn.addEventListener('click', clearFilters);
+    }
     
-    // Cerrar modal al hacer clic fuera
-    window.addEventListener('click', function(event) {
-        const modal = document.getElementById('propertyDetailModal');
-        if (event.target === modal) {
-            closePropertyModal();
-        }
-    });
+    // Event listener para cerrar modal (solo si existe)
+    const propertyClose = document.querySelector('.property-close');
+    if (propertyClose) {
+        propertyClose.addEventListener('click', closePropertyModal);
+    }
+    
+    // Cerrar modal al hacer clic fuera (solo si existe)
+    const modal = document.getElementById('propertyDetailModal');
+    if (modal) {
+        window.addEventListener('click', function(event) {
+            if (event.target === modal) {
+                closePropertyModal();
+            }
+        });
+    }
 });
 
